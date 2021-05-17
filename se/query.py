@@ -7,6 +7,9 @@ class Node:
     def evaluate(self, index):
         return set()
 
+    def get_terms(self):
+        return set()
+
 
 class Term(Node):
     def __init__(self, term):
@@ -15,6 +18,9 @@ class Term(Node):
 
     def evaluate(self, index):
         return set(index[self.term])
+
+    def get_terms(self):
+        return set((self.term,))
 
 
 class Operation(Node):
@@ -29,6 +35,12 @@ class Operation(Node):
         result = self.nodes[0].evaluate(index)
         for node in self.nodes[1:]:
             result = self.combine(result, node.evaluate(index))
+        return result
+
+    def get_terms(self):
+        result = set()
+        for node in self.nodes:
+            result |= node.get_terms()
         return result
 
 
@@ -52,7 +64,7 @@ def build_query(query):
     node_type = query[0]
     if node_type == "term":
         # ["term", "abelha"]
-        return Term(query[1])
+        return Term(query[1].lower())
     else:
         # ["and", ["term", "abelha"], ["term", "rainha"]]
         arg_list = []
@@ -73,6 +85,5 @@ def parse_raw_query(raw_query: str):
 
 def parse_json_query(json_query: str):
     q = json.loads(json_query)
-    print(q)
     query = build_query(q)
     return query

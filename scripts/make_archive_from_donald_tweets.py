@@ -8,6 +8,7 @@ import pandas as pd
 from nltk.tokenize import TweetTokenizer
 
 from se.archive import save_archive
+from se.clean import clean_text
 
 
 MSG_DESCRIPTION = '''Le arquivo de tweets e gera JSON com tweets tokenizados.
@@ -20,6 +21,7 @@ def read_donald_tweets(path):
     docs = []
     tokenizer = TweetTokenizer()
     for text in df['Tweet_Text']:
+        text = clean_text(text)
         toks = tokenizer.tokenize(text)
         docs.append(toks)
     return docs

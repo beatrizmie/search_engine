@@ -1,5 +1,12 @@
 # Uma máquina de busca para fins didáticos.
 
+Features:
+
+- Limpeza dos dados
+- Normalização
+- Queries Booleanas
+- Retrieval Booleano
+
 ## Instruções
 
 - Faça um *fork* deste repositório para poder receber atualizações eventuais. Para saber como fazer um *fork*, veja https://docs.github.com/en/github/getting-started-with-github/fork-a-repo.
